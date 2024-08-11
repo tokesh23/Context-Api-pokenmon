@@ -1,41 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const PokemonList = () => {
   const [pokemon, setPokemon] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10'); // Limit to 10 for simplicity
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10'); // Limit to 10 for simplicity
         const pokemonData = await Promise.all(
-          data.results.map(async (poke) => {
-            const pokeResponse = await fetch(poke.url);
-            if (!pokeResponse.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return pokeResponse.json();
+          response.data.results.map(async (poke) => {
+            const pokeResponse = await axios.get(poke.url);
+            return pokeResponse.data;
           })
         );
         setPokemon(pokemonData);
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        console.error('Error fetching Pokémon data:', error); // Log error but do not set state for error
       }
     };
 
     fetchPokemon();
   }, []); 
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading Pokémon data: {error}</p>;
-  if (!pokemon || !Array.isArray(pokemon)) return <p>No Pokémon data available.</p>;
+  if (pokemon.length === 0) return <p>No Pokémon data available.</p>; // Simple fallback if data is empty
 
   return (
     <ul>

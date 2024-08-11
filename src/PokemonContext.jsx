@@ -31,7 +31,7 @@ const PokemonProvider = ({ children }) => {
     fetchPokemon();
   }, []);
 
-  // Function to filter Pokémon based on the search term
+   
   const filteredPokemon = pokemon.filter(poke =>
     poke.name.toLowerCase().includes(searchTerm.toLowerCase())
   );

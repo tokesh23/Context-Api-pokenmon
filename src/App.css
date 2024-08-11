@@ -1,6 +1,6 @@
- /* src/App.css */
+ 
 
-/* General Styles */
+ 
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
@@ -14,8 +14,7 @@ body {
   align-items: center;
   padding: 20px;
 }
-
-/* Search Bar Styles */
+ 
 .search-bar {
   margin-bottom: 20px;
   display: flex;
@@ -30,7 +29,7 @@ body {
   width: 300px;
 }
 
-/* Pokémon List Styles */
+ 
 .pokemon-list {
   display: flex;
   flex-wrap: wrap;

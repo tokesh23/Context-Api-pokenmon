@@ -1,4 +1,4 @@
- // src/PokemonList.js
+ 
 import React, { useContext } from 'react';
 import { PokemonContext } from './PokemonContext';
 import './App.css';

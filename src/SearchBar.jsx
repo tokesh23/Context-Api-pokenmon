@@ -1,4 +1,4 @@
- // src/SearchBar.js
+ 
 import React, { useContext } from 'react';
 import { PokemonContext } from './PokemonContext';
 import './App.css';

@@ -1,13 +1,13 @@
+ // src/App.js
 import React from 'react';
-import PokemonList from './components/PokemonList';
+import { PokemonProvider } from './PokemonContext';
+import PokemonList from './PokemonList';
 
-const App = () => {
-  return (
-    <div>
-      <h1>Pokémon List</h1>
-      <PokemonList />
-    </div>
-  );
-};
+const App = () => (
+  <PokemonProvider>
+    <h1>Pokémon List</h1>
+    <PokemonList />
+  </PokemonProvider>
+);
 
 export default App;

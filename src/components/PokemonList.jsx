@@ -8,12 +8,21 @@ const PokemonList = () => {
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10'); // Limit to 10 for simplicity
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setPokemon(data.results); // Adjust based on the actual API response structure
+        const pokemonData = await Promise.all(
+          data.results.map(async (poke) => {
+            const pokeResponse = await fetch(poke.url);
+            if (!pokeResponse.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return pokeResponse.json();
+          })
+        );
+        setPokemon(pokemonData);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -31,7 +40,10 @@ const PokemonList = () => {
   return (
     <ul>
       {pokemon.map((poke) => (
-        <li key={poke.name}>{poke.name}</li> // Assuming poke.name is unique
+        <li key={poke.id}>
+          <img src={poke.sprites.front_default} alt={poke.name} />
+          {poke.name}
+        </li>
       ))}
     </ul>
   );

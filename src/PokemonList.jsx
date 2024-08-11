@@ -1,11 +1,10 @@
-    // src/PokemonList.js
+ // src/PokemonList.js
 import React, { useContext } from 'react';
 import { PokemonContext } from './PokemonContext';
 
 const PokemonList = () => {
-  const { pokemon, loading } = useContext(PokemonContext);
+  const { pokemon } = useContext(PokemonContext);
 
-  if (loading) return <p>Loading...</p>;
   if (!pokemon || pokemon.length === 0) return <p>No Pokémon data available.</p>;
 
   return (

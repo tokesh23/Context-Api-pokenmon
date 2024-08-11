@@ -1,21 +1,20 @@
  // src/PokemonList.js
 import React, { useContext } from 'react';
 import { PokemonContext } from './PokemonContext';
+import './App.css';
 
 const PokemonList = () => {
   const { pokemon } = useContext(PokemonContext);
 
-  if (!pokemon || pokemon.length === 0) return <p>No Pokémon data available.</p>;
-
   return (
-    <ul>
-      {pokemon.map((poke) => (
-        <li key={poke.id}>
+    <div className="pokemon-list">
+      {pokemon.map(poke => (
+        <div key={poke.id} className="pokemon-item">
+          <h3>{poke.name}</h3>
           <img src={poke.sprites.front_default} alt={poke.name} />
-          {poke.name}
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 
